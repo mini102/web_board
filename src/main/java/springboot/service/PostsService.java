@@ -52,10 +52,11 @@ public class PostsService {
         return new PostsResponseDto(entity);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)  //Transaction 범위는 유지하되, 조회 기능만 남겨두어 조회 속도가 개선됨 -> 등록/수정.삭제 기능이 전혀 없는 서비스 메소드에서 사용
     public List<PostsListResponseDto> findAllDesc() {
         return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)
+                .map(PostsListResponseDto::new)  //람다식
                 .collect(Collectors.toList());
     }
+    //postsRepository 결과로 넘어온 Posts의 Stream을 map을 통해 PostsListResponseDto 변환 -> List로 반환하는 메소드
 }
